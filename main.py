@@ -5,12 +5,13 @@
 """
 import ml_1m
 import baby_name
-
+import time
 # 文本请求
 """url = 'http://www.baidu.com'
 r = requests.get(url)
 with open('test.txt', 'w') as f:
     f.write(r.text)"""
 
-#ml_1m.dataOperation()
-baby_name.dataOperation()
+# ml_1m.dataOperation()
+baby_name.name_analyse()
+#time.sleep(3)
