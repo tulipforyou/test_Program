@@ -6,7 +6,7 @@ def dataFound():  #获取数据
     names1880=pd.read_csv('names/yob1880.txt',names=['name','sex','births'])
     #print(names1880.groupby(by='sex').births.sum())#分组求和
     pieces=[]
-    years=range(1880,1883)
+    years=range(1880,2011)
     columns=['name','sex','births']
     for year in years:  #所有文件汇总为一个文件
         path='names/yob%d.txt' % year
@@ -25,7 +25,7 @@ def add_prop(group): #求指定婴儿名字占总人数的比例
     return group
 
 def getTop1000(group):#获取指定数量数据
-    return group.sort_values(by='births',ascending=False)[:10]
+    return group.sort_values(by='births',ascending=False)[:1000]
 
 def dataCreat(): #生成数据集
     names=dataFound()
@@ -52,7 +52,7 @@ def name_analyse():#命名分析
     subset.plot(subplots=True,figsize=(10,10),grid=False,title="Number of births per year")
     #按比例绘图
     table=People.pivot_table('prop',index='year',columns='sex',aggfunc=sum)
-    table.plot(xticks=range(1880,1883,1),yticks=np.linspace(0,1.2,13), title="Number of births per year by prop")
+    table.plot(xticks=range(1880,2020,10),yticks=np.linspace(0,1.2,13), title="Number of births per year by prop")
     plt.show()
 
 if __name__=='__main__':
