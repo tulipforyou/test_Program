@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 def dataFound():  #获取数据
 #提取1880年出生孩子信息
     names1880=pd.read_csv('names/yob1880.txt',names=['name','sex','births'])

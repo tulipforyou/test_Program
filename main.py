@@ -11,7 +11,6 @@ import time
 r = requests.get(url)
 with open('test.txt', 'w') as f:
     f.write(r.text)"""
-
 #ml_1m.dataOperation()
 #baby_name.name_analyse()
 #print("其他图表生成中...........！！！")
