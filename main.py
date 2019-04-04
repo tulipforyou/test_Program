@@ -12,6 +12,8 @@ r = requests.get(url)
 with open('test.txt', 'w') as f:
     f.write(r.text)"""
 
-# ml_1m.dataOperation()
-baby_name.name_analyse()
+#ml_1m.dataOperation()
+#baby_name.name_analyse()
+#print("其他图表生成中...........！！！")
+#baby_name.theLastLetterChange()
 #time.sleep(3)
