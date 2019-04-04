@@ -1,14 +1,17 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import public_function
+
 
 def dataFound():  #获取数据
-#提取1880年出生孩子信息
+    #提取1880年出生孩子信息
     names1880=pd.read_csv('names/yob1880.txt',names=['name','sex','births'])
     #print(names1880.groupby(by='sex').births.sum())#分组求和
     pieces=[]
     years=range(1880,2011)
     columns=['name','sex','births']
+    print("数据聚合中......")
     for year in years:  #所有文件汇总为一个文件
         path='names/yob%d.txt' % year
         frame=pd.read_csv(path,names=columns)
@@ -17,7 +20,11 @@ def dataFound():  #获取数据
     """将所有数据组成的列表整合为单个DataFrame表格
     必须要指定ignore_index=True，因为我们不希望保留read_csv所返回的原始行号"""
     names=pd.concat(pieces,ignore_index=True)
+    with open('data.txt','a') as f:
+        f.write("\nbaby_name的数据:\n")
+        f.write(str(names))
     #print(names)
+    print("聚合结束！！！")
     return names
 
 def add_prop(group): #求指定婴儿名字占总人数的比例
@@ -30,6 +37,7 @@ def getTop1000(group):#获取指定数量数据
 
 def dataCreat(): #生成数据集
     names=dataFound()
+    print("测试数据集生成中（top1000)......")
     #对每年出生总人数按行为年份，列为性别，进行求和输出
     #totlePeople=names.pivot_table('births',index='year',columns='sex',aggfunc=sum)
     #print(totlePeople.tail())
@@ -39,15 +47,20 @@ def dataCreat(): #生成数据集
     grouped=names.groupby(['births'])
     #print(grouped)
     top_1000=grouped.apply(getTop1000)
+    with open('data.txt','a') as f:
+        f.write("\ntop_1000的数据:\n")
+        f.write(str(top_1000))
     #print(top_1000)
+    print("数据集生成结束！！！")
     return top_1000
 
 def get_quantile_count(group,q=0.5):
     group=group.sort_values(by='prop',ascending=False).prop.cumsum()
     return group.searchsorted(q)+1
-
+@public_function.gettime
 def name_analyse():#命名分析
     People=dataCreat()
+    print("进入命名分析阶段......")
     bays=People[People.sex=='M']   #man
     girls=People[People.sex=='F']  #female
     #按TEAR和NAME统计的总出生数透视表
@@ -62,11 +75,16 @@ def name_analyse():#命名分析
     #对所需百分值的人数索引求值
     diversity=People.groupby(['year','sex']).apply(get_quantile_count)
     diversity=diversity.unstack('sex')
+    with open('data.txt','a') as f:
+        f.write("\nNumber of popular names in top 50%的数据:\n")
+        f.write(str(diversity))
     diversity.plot(title="Number of popular names in top 50%")
     print("关闭当前图表以显示其他图表！！！")
     plt.show()
-
+@public_function.gettime
 def theLastLetterChange():  #最后一个字母的变革
+    print("接下来进入\"最后一个字母的变革\"分析阶段")
+    print("相应分析数据生成中......")
     names=dataCreat()
     get_last_letter=lambda x:x[-1]
     last_letters=names.name.map(get_last_letter)
@@ -89,6 +107,9 @@ def theLastLetterChange():  #最后一个字母的变革
     filtered=names[names.name.isin(lessly_like)]
     table=filtered.pivot_table('births',index='year',columns='sex',aggfunc='sum')
     table=table.div(table.sum(1),axis=0)
+    with open('data.txt', 'a') as f:
+        f.write("\nbegin with lesl and the sex is changing的数据:\n")
+        f.write(str(table))
     table.plot(style={'M':'k-','F':'k--'},title=U"begin with lesl and the sex is changing")
     plt.show()
 

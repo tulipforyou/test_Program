@@ -6,13 +6,15 @@
 import ml_1m
 import baby_name
 import time
+import public_function
 # 文本请求
 """url = 'http://www.baidu.com'
 r = requests.get(url)
 with open('test.txt', 'w') as f:
     f.write(r.text)"""
-#ml_1m.dataOperation()
-#baby_name.name_analyse()
-#print("其他图表生成中...........！！！")
-#baby_name.theLastLetterChange()
-#time.sleep(3)
+starttime=time.time()
+ml_1m.dataOperation()
+baby_name.name_analyse()
+baby_name.theLastLetterChange()
+endtime=time.time()
+print("*"*70,'\n\n',"程序运行共花费时间为： ",endtime-starttime,' s\n\n','*'*70)
