@@ -34,6 +34,7 @@ def dataCreat(): #生成数据集
     #print(totlePeople.tail())
     names=names.groupby(['year','sex']).apply(add_prop)
     #print(names)
+    """如果按YEAR和SEX排列，后面将不能对生成的数据按YEAR和SEX排列"""
     grouped=names.groupby(['births'])
     #print(grouped)
     top_1000=grouped.apply(getTop1000)
@@ -54,4 +55,8 @@ def name_analyse():#命名分析
     table.plot(xticks=range(1880,1883,1),yticks=np.linspace(0,1.2,13), title="Number of births per year by prop")
     plt.show()
 
+if __name__=='__main__':
+    dataFound()
+    dataCreat()
+    name_analyse()
 
