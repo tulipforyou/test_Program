@@ -113,6 +113,7 @@ def theLastLetterChange():  #最后一个字母的变革
     table.plot(style={'M':'k-','F':'k--'},title=U"begin with lesl and the sex is changing")
     plt.show()
 
+
 if __name__=='__main__':
     dataFound()
     dataCreat()

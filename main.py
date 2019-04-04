@@ -18,3 +18,4 @@ baby_name.name_analyse()
 baby_name.theLastLetterChange()
 endtime=time.time()
 print("*"*70,'\n\n',"程序运行共花费时间为： ",endtime-starttime,' s\n\n','*'*70)
+
