@@ -16,6 +16,7 @@ def dataFound():  #获取数据
     """将所有数据组成的列表整合为单个DataFrame表格
     必须要指定ignore_index=True，因为我们不希望保留read_csv所返回的原始行号"""
     names=pd.concat(pieces,ignore_index=True)
+    #print(names)
     return names
 
 def add_prop(group): #求指定婴儿名字占总人数的比例
@@ -24,7 +25,7 @@ def add_prop(group): #求指定婴儿名字占总人数的比例
     return group
 
 def getTop1000(group):#获取指定数量数据
-    return group.sort_values(by='births',ascending=False)[:100]
+    return group.sort_values(by='births',ascending=False)[:10]
 
 def dataCreat(): #生成数据集
     names=dataFound()
@@ -32,7 +33,9 @@ def dataCreat(): #生成数据集
     #totlePeople=names.pivot_table('births',index='year',columns='sex',aggfunc=sum)
     #print(totlePeople.tail())
     names=names.groupby(['year','sex']).apply(add_prop)
-    grouped=names.groupby(['sex'])
+    #print(names)
+    grouped=names.groupby(['births'])
+    #print(grouped)
     top_1000=grouped.apply(getTop1000)
     #print(top_1000)
     return top_1000
@@ -45,10 +48,10 @@ def name_analyse():#命名分析
     totle_people=People.pivot_table('births',index='year',columns='name',aggfunc=sum)
     #按指定名字画图
     subset=totle_people[['John','Harry','Mary']]
-    #subset.plot(subplots=True,figsize=(10,10),grid=False,title="Number of births per year")
+    subset.plot(subplots=True,figsize=(10,10),grid=False,title="Number of births per year")
     #按比例绘图
-    table=People.pivot_table('prop',index='year',columns='name',aggfunc=sum)
-    table.plot(xticks=range(1880,1883,1),yticks=np.linspace(0,0.3,13), title="Number of births per year by prop")
+    table=People.pivot_table('prop',index='year',columns='sex',aggfunc=sum)
+    table.plot(xticks=range(1880,1883,1),yticks=np.linspace(0,1.2,13), title="Number of births per year by prop")
     plt.show()
 
 
