@@ -52,6 +52,7 @@ def name_analyse():#命名分析
     subset.plot(subplots=True,figsize=(10,10),grid=False,title="Number of births per year")
     #按比例绘图
     table=People.pivot_table('prop',index='year',columns='sex',aggfunc=sum)
+    #X轴步长为10,Y轴最大值为1.2,最小值为0,其间分12份
     table.plot(xticks=range(1880,2020,10),yticks=np.linspace(0,1.2,13), title="Number of births per year by prop")
     plt.show()
 
