@@ -27,4 +27,7 @@ print("*"*70,'\n\n',"程序运行共花费时间为： ",endtime-starttime,' s\n
 #elseFiles.imgshow()
 
 array=Numpy_test.Numpy_test()
-array.array_test()
+#array.array_test()
+#array.vector_culcalute()
+#array.where_fun()
+array.file_operation()

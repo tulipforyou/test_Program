@@ -43,10 +43,34 @@ class Numpy_test:
         print("对应数据为boolArr2：\n",boolArr2)
         print("boolArr2[boolArr1=='sch']:\n",boolArr2[boolArr1=='sch'])
         print("boolArr2[boolArr1=='sch',5:]:\n", boolArr2[boolArr1 == 'sch',5:])
-        x=np.linspace(-np.pi,np.pi,314,endpoint=True)#linspace产生范围和大小内随机数组
-        plt.plot(np.sin(x))
+        x=np.linspace(-np.pi*2,np.pi*2,314,endpoint=True)#linspace产生范围和大小内随机数组
+        plt.plot(np.cosh(x))
         plt.show()
 
+    def vector_culcalute(self):
+        points=np.arange(-3,3,0.01)
+        xs,ys=np.meshgrid(points,points)
+        print("xs:\n",xs)
+        print("ys:\n",ys)
+        z=np.sqrt(xs**2+ys**2)
+        plt.imshow(z)
+        plt.colorbar()
+        plt.title("image plot of aqrt(x^2+y^2) for a grid of values")
+        print("sqrt(xs**2+ys**2):\n",z)
+        plt.show()
+
+    def where_fun(self):
+        arr=np.random.randn(4,4)
+        print("arr:\n",arr)
+        arr_ch=np.where(arr>0,2,-2)
+        print("after change:\n",arr_ch)
+        arr_ch1=np.where(arr<0,2,arr)
+        print("只把负值换为2：\n",arr_ch1)
+
+    def file_operation(self):
+        arr=np.arange(10000)
+        np.save('some_array',arr)
+        print(np.load('some_array.npy'))
 
     if __name__=='__main__':
         array_test()
