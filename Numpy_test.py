@@ -47,5 +47,6 @@ class Numpy_test:
         plt.plot(np.sin(x))
         plt.show()
 
+
     if __name__=='__main__':
         array_test()
